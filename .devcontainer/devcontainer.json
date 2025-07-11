@@ -5,8 +5,7 @@
 	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	"features": {
 		"ghcr.io/devcontainers/features/python:1": {
-			// Uncomment if you want to run JupyterLab
-			// "installJupyterlab": true,
+			"installJupyterlab": true,
 			"version": "latest"
 		},
 		//"ghcr.io/devcontainers/features/anaconda:1": {},
@@ -14,21 +13,9 @@
 			"plugins": "mkdocs-material pymdown-extensions mkdocstrings[crystal,python] mkdocs-monorepo-plugin mkdocs-pdf-export-plugin mkdocs-awesome-pages-plugin"
 		},
 		"ghcr.io/devcontainers-extra/features/pre-commit:2": {},
-		"ghcr.io/rocker-org/devcontainer-features/r-apt:latest": {
-			"vscodeRSupport": "full",
-			"installDevTools": true,
-			"installRadian": true,
-			"installRMarkdown": true,
-			"installVscDebugger": true
-		},
-		"ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-			"packages": "r-cran-data.table,r-cran-tidyverse",
-			"upgradePackages": true
-		}
+		"ghcr.io/devcontainers/features/git:1": {},
+		"ghcr.io/devcontainers/features/git-lfs:1": {}
 	},
-	"overrideFeatureInstallOrder": [
-		"ghcr.io/rocker-org/devcontainer-features/r-apt"
-	],
 
 	"postCreateCommand": "pip install cookiecutter-data-science",
 
@@ -39,6 +26,8 @@
 	// "appPort": [
 	// 	4321
 	// ],
+	
+	"postStartCommand": "pip install uv",
 
 	// Configure tool-specific properties.
 	"customizations": {
@@ -61,10 +50,6 @@
 						"jsdelivr.com"
 					]
 				},
-				"[r]": {
-					"rterm.linux": "/usr/local/bin/radian",
-					"r.bracketedPaste": true
-				},
 				"editor.inlineSuggest.enabled": true,
 				"editor.lineHeight": 17,
 				"breadcrumbs.enabled": false,
@@ -83,8 +68,7 @@
 				"ms-toolsai.vscode-jupyter-cell-tags",
 				"charliermarsh.ruff",
 				"ms-toolsai.jupyter",
-				"ms-python.python",
-				"reditorsupport.r"
+				"ms-python.python"
 			]
 		}
 	},
