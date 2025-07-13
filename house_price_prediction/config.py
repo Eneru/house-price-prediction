@@ -1,0 +1,19 @@
+from pathlib import Path
+
+KAGGLE_CONFIG_DIR = Path("./.kaggle").absolute()
+
+RAW_DATA_DIR = Path("./data/raw")
+DATASET_FILE = "AmesHousing.csv"
+DATASET_FILEPATH = Path(RAW_DATA_DIR, DATASET_FILE)
+
+PROCESSED_DATA_DIR = Path("./data/processed")
+PROCESSED_X_TRAIN_FILEPATH = Path(PROCESSED_DATA_DIR, "X_train.npy")
+PROCESSED_X_VALID_FILEPATH = Path(PROCESSED_DATA_DIR, "X_valid.npy")
+PROCESSED_Y_TRAIN_FILEPATH = Path(PROCESSED_DATA_DIR, "y_train.npy")
+PROCESSED_Y_VALID_FILEPATH = Path(PROCESSED_DATA_DIR, "y_valid.npy")
+
+MODELS_DIR = Path("./models")
+PREPROCESSED_MODEL_FILE = "preprocessed_model.pkl"
+PREPROCESSED_MODEL_FILEPATH = Path(MODELS_DIR, PREPROCESSED_MODEL_FILE)
+
+PLOTS_DIR = Path("./reports/figures")

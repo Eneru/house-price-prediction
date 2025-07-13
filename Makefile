@@ -25,6 +25,20 @@ clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
 
+## Delete the generated models 
+.PHONY: cleanmodels
+cleanmodels:
+	rm -f ./models/*
+
+## Delete the raw data
+.PHONY: cleanraw
+cleanraw:
+	rm -f ./data/raw/*
+
+## Delete the processed data
+.PHONY: cleanprocessed
+cleanprocessed:
+	rm -f ./data/processed/*
 
 ## Lint using ruff (use `make format` to do formatting)
 .PHONY: lint
@@ -61,7 +75,9 @@ create_environment:
 # PROJECT RULES                                                                 #
 #################################################################################
 
-
+.PHONY: process
+process:
+	python ./house_price_prediction/dataset.py
 
 #################################################################################
 # Self Documenting Commands                                                     #
