@@ -4,7 +4,17 @@
 
 This project demonstrates how to properly clean data *(handle missing, handle encoding, handle numerical data)*, train a model *(using a regression model)*, and predict and serve it through API.
 
-## Project Organization
+---
+
+## 🛠 Technologies Used
+
+- Python 3.10+
+- Pandas, NumPy, Scikit-Learn
+- GitHub
+
+---
+
+## 📁 Project Structure
 
 ```
 ├── LICENSE            <- Open-source license if one is chosen
@@ -55,5 +65,14 @@ This project demonstrates how to properly clean data *(handle missing, handle en
     └── plots.py                <- Code to create visualizations
 ```
 
---------
+---
 
+## 🚀 How to Run
+
+1. Clone the repo  
+2. Install dependencies  
+3. Build the processed dataset  
+```bash
+make requirements
+make process
+```
