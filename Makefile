@@ -79,6 +79,14 @@ create_environment:
 process:
 	python ./house_price_prediction/dataset.py
 
+.PHONY: train
+train:
+	python ./house_price_prediction/modeling/train.py
+
+.PHONY: plots
+plots:
+	python ./house_price_prediction/plots.py
+
 #################################################################################
 # Self Documenting Commands                                                     #
 #################################################################################
