@@ -75,4 +75,6 @@ This project demonstrates how to properly clean data *(handle missing, handle en
 ```bash
 make requirements
 make process
+make train
+make plots
 ```
