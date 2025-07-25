@@ -1,4 +1,5 @@
 import os
+import re
 
 import joblib
 import numpy as np
@@ -59,6 +60,23 @@ def load_data() -> pd.DataFrame:
     return df
 
 
+def sanitize_column_name(columnName: str) -> str:
+    columnNameInLowerCase = columnName.lower()
+    columnNameWithoutOrdinalNumbers = columnNameInLowerCase.replace("1st", "first").replace(
+        "2nd", "second"
+    )
+    fixedColumnNameStartingWithNumber = re.sub(
+        r"^(3)(.*)", r"three_\2", columnNameWithoutOrdinalNumbers
+    )
+    fixedInvalidChars = re.sub(r"([^a-z0-9_])", r"_", fixedColumnNameStartingWithNumber)
+
+    return fixedInvalidChars
+
+
+def sanitize_column_names(df: pd.DataFrame) -> pd.DataFrame:
+    return df.rename(sanitize_column_name, axis="columns")
+
+
 def init_preprocessing_pipeline(numerical_cols, categorical_cols):
     # Numerical: impute missing + scale
     num_pipeline = Pipeline(
@@ -106,11 +124,15 @@ def clean_data(df: pd.DataFrame):
     print("\tDropping useless columns: ", useless_columns)
     df.drop(columns=useless_columns, inplace=True)
 
+    print("\tSanitizing the columns to be dataclass complient")
+    df = sanitize_column_names(df)
+    print(f"\t-> {df.columns}")
+
     numerical_cols = (
-        df.select_dtypes(include=["int64", "float64"]).drop(columns=["SalePrice"]).columns.tolist()
+        df.select_dtypes(include=["int64", "float64"]).drop(columns=["saleprice"]).columns.tolist()
     )
     categorical_cols = df.select_dtypes(include=["object"]).columns.tolist()
-    target_col = "SalePrice"
+    target_col = "saleprice"
 
     print(f"\tDropping target column: {target_col}")
     X = df.drop(columns=target_col)

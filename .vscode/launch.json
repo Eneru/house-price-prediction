@@ -14,6 +14,27 @@
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Débogueur Streamlit : Fichier actuel",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "streamlit",
+      "args": [
+        "run",
+        "${file}",
+        "--server.port",
+        "2000"
+      ]
+    },
+    {
+      "name": "Python: Debug Tests",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "purpose": ["debug-test"],
+      "console": "integratedTerminal",
+      "justMyCode": false
     }
   ]
 }

@@ -68,7 +68,8 @@
 				"ms-toolsai.vscode-jupyter-cell-tags",
 				"charliermarsh.ruff",
 				"ms-toolsai.jupyter",
-				"ms-python.python"
+				"ms-python.python",
+				"ms-vscode.makefile-tools"
 			]
 		}
 	},
