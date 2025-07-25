@@ -1,10 +1,16 @@
 from typing import get_type_hints
 
 import pandas as pd
+from pydantic import TypeAdapter
 import streamlit as st
 
-from house_price_prediction.modeling.predict import load_best_model
+from house_price_prediction.modeling.predict import load_best_model, load_preprocessed_data
 from house_price_prediction.modeling.schemas import HouseFeatures
+
+
+@st.cache_data
+def load_preprocessed_model():
+    return load_preprocessed_data()
 
 
 @st.cache_data
@@ -13,6 +19,7 @@ def load_trained_model():
 
 
 def main():
+    preprocessor = load_preprocessed_model()
     model = load_trained_model()
 
     # Initialize session state
@@ -44,25 +51,27 @@ def main():
             st.session_state.filters[i]["value"] = value
 
     # Add new filter row
-    if st.button("➕ Add filter"):
+    if st.button("➕ Add filter", "add_filter_button"):
         st.session_state.filters.append({"field": None, "value": ""})
         st.rerun()
 
     # Predict
-    if st.button("🚀 Predict"):
+    if st.button("🚀 Predict", "predict_button"):
         input_data = {}
         for f in st.session_state.filters:
             if f["field"] and f["value"] != "":
                 # Cast to correct type
                 target_type = fields[f["field"]]
                 try:
-                    input_data[f["field"]] = target_type(f["value"]) if f["value"] != "" else None
-                except ValueError:
+                    input_data[f["field"]] = TypeAdapter(target_type).validate_strings(f["value"])
+                except ValueError or TypeError:
                     st.error(f"Invalid value for {f['field']}")
                     st.stop()
 
-        df = pd.DataFrame([input_data])
-        prediction = model.predict(df)[0]
+        full_input_data = HouseFeatures(**input_data)
+        df = pd.DataFrame([full_input_data.model_dump()])
+        X_processed = preprocessor.transform(df) if preprocessor else df
+        prediction = model.predict(X_processed)[0]
         st.success(f"💰 Estimated Sale Price: ${prediction:,.0f}")
 
 
