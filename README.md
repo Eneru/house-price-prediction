@@ -9,7 +9,8 @@ This project demonstrates how to properly clean data *(handle missing, handle en
 ## 🛠 Technologies Used
 
 - Python 3.10+
-- Pandas, NumPy, Scikit-Learn
+- Pandas, NumPy, Scikit-Learn, JobLib, LightGBM, MatPlotLib, XGBoost
+- FastAPI, Uvicorn, Pydantic, Streamlit
 - GitHub
 
 ---
@@ -21,12 +22,8 @@ This project demonstrates how to properly clean data *(handle missing, handle en
 ├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
 ├── README.md          <- The top-level README for developers using this project.
 ├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
 │   ├── processed      <- The final, canonical data sets for modeling.
 │   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
 │
 ├── models             <- Trained and serialized models, model predictions, or model summaries
 │
@@ -37,37 +34,39 @@ This project demonstrates how to properly clean data *(handle missing, handle en
 ├── pyproject.toml     <- Project configuration file with package metadata for 
 │                         house_price_prediction and configuration for tools like black
 │
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
 ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
 │   └── figures        <- Generated graphics and figures to be used in reporting
 │
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
+├── house_price_prediction   <- Source code for use in this project.
+│   │
+│   ├── __init__.py             <- Makes house_price_prediction a Python module
+│   │
+│   ├── config.py               <- Store useful variables and configuration
+│   │
+│   ├── dataset.py              <- Scripts to download or generate data
+│   │
+│   ├── modeling                
+│   │   ├── __init__.py 
+│   │   ├── predict.py          <- Code to run model inference with trained models          
+│   │   ├── train.py            <- Code to train models          
+│   │   └── schemas.py          <- Code of the @dataclass and pydantic models
+│   │
+│   └── plots.py                <- Code to create visualizations
 │
-├── setup.cfg          <- Configuration file for flake8
+├── api.py             <- Code to run the FastAPI with a predict route
 │
-└── house_price_prediction   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes house_price_prediction a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
+└── api.py             <- Code to run the Streamlit app
 ```
 
 ---
 
 ## 🚀 How to Run
+
+### Prerequisites
+
+1. Put the kaggle.json file in the .kaggle in the root folder, it must contain 2 fields : `username` and `key` *(which is the API key)*.
+
+### Test it
 
 1. Clone the repo  
 2. Install dependencies  
@@ -77,4 +76,17 @@ make requirements
 make process
 make train
 make plots
+```
+4. If you want to predict, then use  
+```bash
+make predict
+```
+5. If you want to use the API instead, use  
+```bash
+make api
+```  
+And hit [the local URL](http://127.0.0.1:8000/docs) in your browser.
+6. If you want to run the streamlit app locally, use *(not functional yet)*  
+```bash
+make app
 ```

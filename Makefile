@@ -40,6 +40,10 @@ cleanraw:
 cleanprocessed:
 	rm -f ./data/processed/*
 
+## Delete all the data and models
+.PHONY: cleanall
+cleanall: cleanmodels cleanraw cleanprocessed
+
 ## Lint using ruff (use `make format` to do formatting)
 .PHONY: lint
 lint:
@@ -86,6 +90,18 @@ train:
 .PHONY: plots
 plots:
 	python ./house_price_prediction/plots.py
+
+.PHONY: predict
+predict:
+	python ./house_price_prediction/modeling/predict.py
+
+.PHONY: api
+api:
+	uvicorn api:app --reload
+
+.PHONY: app
+app:
+	python -m streamlit run ./app.py
 
 #################################################################################
 # Self Documenting Commands                                                     #
