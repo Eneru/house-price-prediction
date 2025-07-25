@@ -37,6 +37,9 @@ This project demonstrates how to properly clean data *(handle missing, handle en
 ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
 │   └── figures        <- Generated graphics and figures to be used in reporting
 │
+├── tests              <- Tests to run against modules, models and app.
+│   └── test_app.py    <- Tests on streamlit execution.
+│
 ├── house_price_prediction   <- Source code for use in this project.
 │   │
 │   ├── __init__.py             <- Makes house_price_prediction a Python module
@@ -66,7 +69,7 @@ This project demonstrates how to properly clean data *(handle missing, handle en
 
 1. Put the kaggle.json file in the .kaggle in the root folder, it must contain 2 fields : `username` and `key` *(which is the API key)*.
 
-### Test it
+### Run it
 
 1. Clone the repo  
 2. Install dependencies  
@@ -89,4 +92,11 @@ And hit [the local URL](http://127.0.0.1:8000/docs) in your browser.
 6. If you want to run the streamlit app locally, use *(not functional yet)*  
 ```bash
 make app
+```
+
+### Test it
+
+1. Simply run the pytest using  
+```bash
+make test
 ```
